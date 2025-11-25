@@ -1,0 +1,705 @@
+C:\Users\KAnzai\Documents\GitHub\baypass 
+Info: Found credentials at: C:\Users\kanzai\Box\dvutils-creds-kanzai.json
+Info: Set AWS creds using 'default' creds.
+dataframe on S3 at baypass:fare_table.csv
+DROP TABLE IF EXISTS clipper_ods.baypass.fare_table
+
+
+CREATE TABLE "clipper_ods"."baypass"."fare_table" (    operator VARCHAR(255),    origin_location VARCHAR(255),    destination_location VARCHAR(255),    route_type VARCHAR(255),    adult_fare DECIMAL(5,2),    operator_id DECIMAL(3, 0),    origin_id DECIMAL(7, 0),    destination_id DECIMAL(7,0),    classification_id DECIMAL(5,0),    fare_key DECIMAL(15,0),    fare_year DECIMAL(6,0),    fare_month DECIMAL(4,0))
+
+
+COPY baypass.fare_table
+                FROM 's3://baypass/fare_table.csv'
+                CREDENTIALS 'aws_access_key_id=XXX;aws_secret_access_key=XXX'
+                EMPTYASNULL
+                FILLRECORD
+                TIMEFORMAT as auto
+                DATEFORMAT as auto
+                NULL AS nan
+                CSV
+                IGNOREHEADER 1;
+
+
+Grant select on baypass.fare_table to eps_user, eps_admin, tableau_baypass, kanzai
+
+
+C:\Users\KAnzai\AppData\Local\anaconda3\envs\mtcpy-env\Lib\site-packages\openpyxl\worksheet\_reader.py:329: UserWarning: Data Validation extension is not supported and will be removed
+  warn(msg)
+C:\Users\KAnzai\AppData\Local\anaconda3\envs\mtcpy-env\Lib\site-packages\openpyxl\worksheet\_reader.py:329: UserWarning: Data Validation extension is not supported and will be removed
+  warn(msg)
+Info: Found credentials at: C:\Users\kanzai\Box\dvutils-creds-kanzai.json
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+The institution is not a column in stacked_history and will be skipped
+Info: Set AWS creds using 'default' creds.
+dataframe on S3 at baypass:partner_info.csv
+DROP TABLE IF EXISTS clipper_ods.baypass.partner_info
+
+
+CREATE TABLE "clipper_ods"."baypass"."partner_info" (    institution_id DECIMAL(5,0),    institution_name VARCHAR(255),    existing_pass_operators VARCHAR(255),    info_source VARCHAR(255),    main_contact VARCHAR(255),    main_contact_email VARCHAR(255),    county VARCHAR(255),    latitude DECIMAL(13,10),    longitude DECIMAL(13,10),    institution_type VARCHAR(255))
+
+
+COPY baypass.partner_info
+                FROM 's3://baypass/partner_info.csv'
+                CREDENTIALS 'aws_access_key_id=XXX;aws_secret_access_key=XXX'
+                EMPTYASNULL
+                FILLRECORD
+                TIMEFORMAT as auto
+                DATEFORMAT as auto
+                NULL AS nan
+                CSV
+                IGNOREHEADER 1;
+
+
+Grant select on baypass.partner_info to eps_user, eps_admin, tableau_baypass, kanzai
+
+
+Info: Set AWS creds using 'default' creds.
+dataframe on S3 at baypass:participant_counts.csv
+DROP TABLE IF EXISTS clipper_ods.baypass.participant_counts
+
+
+CREATE TABLE "clipper_ods"."baypass"."participant_counts" (    date DATETIME,    participant_count VARCHAR(255),    institution_name VARCHAR(255))
+
+
+COPY baypass.participant_counts
+                FROM 's3://baypass/participant_counts.csv'
+                CREDENTIALS 'aws_access_key_id=XXX;aws_secret_access_key=XXX'
+                EMPTYASNULL
+                FILLRECORD
+                TIMEFORMAT as auto
+                DATEFORMAT as auto
+                NULL AS nan
+                CSV
+                IGNOREHEADER 1;
+
+
+Grant select on baypass.participant_counts to eps_user, eps_admin, tableau_baypass, kanzai
+
+
+Info: Set AWS creds using 'default' creds.
+dataframe on S3 at baypass:contract_info.csv
+DROP TABLE IF EXISTS clipper_ods.baypass.contract_info
+
+
+CREATE TABLE "clipper_ods"."baypass"."contract_info" (    institution_name VARCHAR(255),    start_date DATETIME,    end_date DATETIME,    econtracts_contract_id VARCHAR(255),    contract_year DECIMAL(4,0),    internal_contract_id VARCHAR(255))
+
+
+COPY baypass.contract_info
+                FROM 's3://baypass/contract_info.csv'
+                CREDENTIALS 'aws_access_key_id=XXX;aws_secret_access_key=XXX'
+                EMPTYASNULL
+                FILLRECORD
+                TIMEFORMAT as auto
+                DATEFORMAT as auto
+                NULL AS nan
+                CSV
+                IGNOREHEADER 1;
+
+
+Grant select on baypass.contract_info to eps_user, eps_admin, tableau_baypass, kanzai
+
+
+Info: Set AWS creds using 'default' creds.
+dataframe on S3 at baypass:monthly_prices.csv
+DROP TABLE IF EXISTS clipper_ods.baypass.monthly_prices
+
+
+CREATE TABLE "clipper_ods"."baypass"."monthly_prices" (    date DATETIME,    monthly_price DECIMAL(6,2),    institution_name VARCHAR(255))
+
+
+COPY baypass.monthly_prices
+                FROM 's3://baypass/monthly_prices.csv'
+                CREDENTIALS 'aws_access_key_id=XXX;aws_secret_access_key=XXX'
+                EMPTYASNULL
+                FILLRECORD
+                TIMEFORMAT as auto
+                DATEFORMAT as auto
+                NULL AS nan
+                CSV
+                IGNOREHEADER 1;
+
+
+Grant select on baypass.monthly_prices to eps_user, eps_admin, tableau_baypass, kanzai
+
+
+Info: Set AWS creds using 'default' creds.
+dataframe on S3 at baypass:deactivation_periods.csv
+DROP TABLE IF EXISTS clipper_ods.baypass.deactivation_periods
+
+
+CREATE TABLE "clipper_ods"."baypass"."deactivation_periods" (    institution_name VARCHAR(255),    date DATETIME,    activation_status DECIMAL(1, 0))
+
+
+COPY baypass.deactivation_periods
+                FROM 's3://baypass/deactivation_periods.csv'
+                CREDENTIALS 'aws_access_key_id=XXX;aws_secret_access_key=XXX'
+                EMPTYASNULL
+                FILLRECORD
+                TIMEFORMAT as auto
+                DATEFORMAT as auto
+                NULL AS nan
+                CSV
+                IGNOREHEADER 1;
+
+
+Grant select on baypass.deactivation_periods to eps_user, eps_admin, tableau_baypass, kanzai
+
+
+Info: Found credentials at: C:\Users\kanzai\Box\dvutils-creds-kanzai.json
+drop table if exists baypass.tagons;
+
+
+select t.*, 
+m.institution_name
+into baypass.tagons
+from clipper.anonymized_fare_transaction as t
+right join baypass.partner_info as m on m.institution_id = t.institution_id
+where date_trunc('day', generation_time_pst) >= '2022-08-01'
+and date_trunc('day', generation_time_pst)  <= 'now'
+and fare_transaction_sub_type in (1,2,4)
+and contract_id = 520;
+
+
+drop table if exists baypass.tagoffs;
+
+
+select t.*,
+m.institution_name 
+into baypass.tagoffs
+from clipper.anonymized_fare_transaction as t
+right join baypass.partner_info as m on m.institution_id = t.institution_id
+where date_trunc('day',generation_time_pst) >= '2022-08-01'
+and date_trunc('day',generation_time_pst)  <= 'now'
+and fare_transaction_sub_type in (3,5)
+and contract_id = 520;
+
+
+drop table if exists baypass.complete_trips;
+
+
+select baypass.tagoffs.*,
+(case when baypass.tagoffs.fare_transaction_sub_type = 3 then baypass.tagons.purse_amount-baypass.tagoffs.purse_amount 
+when baypass.tagoffs.fare_transaction_sub_type = 5 then baypass.tagoffs.purse_amount end ) as fare_charged
+into baypass.complete_trips
+from baypass.tagoffs
+join baypass.tagons on 
+baypass.tagoffs.anonymized_card_serial_number = baypass.tagons.anonymized_card_serial_number
+and baypass.tagoffs.ride_start_time_pst = baypass.tagons.ride_start_time_pst;
+
+
+drop table if exists baypass.tagoffs_only;
+
+
+select f.*,  
+(case when f.fare_transaction_sub_type = 3 then -f.purse_amount 
+when f.fare_transaction_sub_type = 5 then f.purse_amount end) as fare_charged
+into baypass.tagoffs_only
+from baypass.tagoffs as f
+full outer join baypass.tagons as n on 
+f.anonymized_card_serial_number = n.anonymized_card_serial_number
+and f.ride_start_time_pst = n.ride_start_time_pst
+where n.generation_time_pst is null;
+
+
+drop table if exists baypass.tagons_only;
+
+
+select n.*, 
+(n.purse_amount) as fare_charged
+into baypass.tagons_only
+from baypass.tagoffs as f 
+full outer join baypass.tagons as n  on 
+f.anonymized_card_serial_number = n.anonymized_card_serial_number
+and f.ride_start_time_pst = n.ride_start_time_pst
+where f.generation_time_pst is null;
+
+
+drop table if exists baypass.trips;
+
+
+select t.*,
+c.start_date, 
+c.end_date, 
+coalesce((case when t.ride_start_time_pst >= c.start_date and t.ride_start_time_pst <= c.end_date then 'Phase 2'
+when t.ride_start_time_pst < c.start_date then 'Phase 1' 
+when t.ride_start_time_pst > c.end_date then 'Unauthorized'
+end), 'Phase 1') as phase,
+date_part_year(cast(t.ride_start_time_pst as date)) as fare_year,
+(case when date_part(month, cast(t.ride_start_time_pst as date)) > 6 then 7 else 1 end) as fare_month
+into baypass.trips 
+from  (
+select *, 'Tag-off Only' as trip_type
+from baypass.tagoffs_only
+union 
+select *, 'Tag-on Only' as trip_type
+from baypass.tagons_only
+union
+select *, 'Tag-on and Tag-off' as trip_type from baypass.complete_trips) as t
+left join (
+    select institution_name, 
+    min(start_date) as start_date,
+    max(end_date) as end_date
+    from baypass.contract_info
+    group by institution_name
+    ) as c on c.institution_name = t.institution_name
+;
+
+
+drop table if exists baypass.trips_with_estimated_fare;
+
+
+select
+	anonymized_card_serial_number,
+	ride_start_time_pst,
+	t.trip_type,
+	t.operator_id,
+	t.phase,
+	t.fare_year,
+	t.fare_month,
+	(case when (p.participant_name = 'Golden Gate Transit' and rt.route_type = 'Marin Transit Route') then 'Marin Transit' else p.participant_name end) as operator_name, 
+	coalesce(l1.location_name, '0') as origin_location_name,
+	coalesce(l2.location_name, '0') as destination_location_name,
+	fare_charged,
+	--need to add fare that should have be charged. this may need to be done outside of SQL?
+	---think of way to have mode? (actually, decided against it because it would only really be useful for Muni and it wouldn't work out in that case because I don't know how to distinguish the bredas from the rest of the C1 fleet) 
+  	t.institution_name,
+	prod.description as product_name,
+	(case when contract_id = 520 then 1 else 0 end) as baypass_flag, 
+	coalesce(rt.route_name,'0') as route_name,
+	coalesce(rt.route_type,'0') as route_type_name,
+	ft.adult_fare * (1 ^ transfer_discount_flag) as estimated_adult_fare
+into baypass.trips_with_estimated_fare
+from baypass.trips as t 
+left join clipper.participant as p on t.operator_id = p.participant_id
+left join clipper."location" as l1 on t.operator_id = l1.participant_id and t.origin_location = l1.location_code 
+left join clipper."location" as l2 on t.operator_id = l2.participant_id and t.destination_location = l2.location_code
+left join clipper.contract_prodtype_map as cp on t.contract_id = cp.contract_type
+left join clipper.product as prod on prod.issuer_id = cp.issuer_id and prod.product_type = cp.product_type
+left join clipper.route as r on t.operator_id = r.particpant_id and t.route_id = r.route_id 
+left join clipper.routename_routetype as rt on rt.participant_name = p.participant_name and 
+	(rt.route_name = r.route_name or (rt.route_name is NULL and r.route_name is null))
+left join baypass.fare_table as ft 
+	on ft."operator" = p.participant_name 
+	and ft.origin_location = coalesce(l1.location_name, '0') 
+	and ft.destination_location = coalesce(l2.location_name, '0') 
+	and ft.route_type = coalesce(rt.route_type,'0')
+	and ft.fare_year = coalesce(t.fare_year, 0)
+	and ft.fare_month = coalesce(t.fare_month, 0)
+where
+-- Accounting for SFSU deactivation periods
+institution_name != 'San Francisco State University' 
+or (ride_start_time_pst between '2022-08-17' and '2022-12-18') -- Reflecting SFSU 2023 Fall Semester, which begins August 17 and ends December 17 at EOD (SQL between function does not include stated end time transactions that occur after 00:00:00 on the specified end date)
+or (ride_start_time_pst between '2023-01-31' and '2023-06-02') -- SFSU 2023 Spring Semester
+or (ride_start_time_pst between '2023-08-09' and '2023-12-17') -- SFSU 2023 Fall Semester
+or (ride_start_time_pst between '2024-01-24' and '2024-05-31') -- SFSU 2024 Spring Semester
+or (ride_start_time_pst between '2024-08-14' and '2024-12-22') -- SFSU 2024 Fall Semester
+or (ride_start_time_pst between '2025-01-15' and '2025-05-31') -- SFSU 2025 Spring Semester
+or (ride_start_time_pst between '2025-08-20' and '2025-12-21') -- SFSU 2025 Fall Semester
+;
+
+
+drop table if exists baypass.transfers;
+
+
+select
+    trip1.anonymized_card_serial_number,
+    op1.participant_name as trip_1_operator,
+--    route1.route_name as trip_1_route_name,
+--    COALESCE(loc1.location_name,'Unknown') as trip_1_origin,
+    trip1.generation_time_pst as trip_1_tag_on_time,
+    trip1.institution_id as trip1_institution,
+    op2.participant_name as trip_2_operator,
+--    route2.route_name as trip_2_route_name,
+--    COALESCE(loc2.location_name,'Unknown') as trip_2_origin,
+    trip2.generation_time_pst as trip_2_tag_on_time,
+    trip2.institution_id as trip2_institution,
+    1 as transfer_flag
+    
+into baypass.transfers
+FROM
+baypass.tagons as trip1
+join baypass.tagons as trip2 
+on trip1.anonymized_card_serial_number = trip2.anonymized_card_serial_number
+and trip1.generation_time_pst < trip2.generation_time_pst      ----Trip 1 tag-on happens before trip 2 tag-on
+and trip2.generation_time_pst < (trip1.generation_time_pst + '2 hour'::interval) ---Trip 2 tag-on happens within 2 hours of Trip 2 tag-on 
+
+left join clipper.participant as op1 
+on op1.participant_id = trip1.operator_id
+join clipper.participant as op2 
+on op2.participant_id = trip2.operator_id
+
+left join clipper.location as loc1
+on loc1.participant_id = trip1.operator_id
+and loc1.location_code = trip1.origin_location
+
+left join clipper.location as loc2 
+on loc2.participant_id = trip2.operator_id
+and loc2.location_code = trip2.origin_location
+
+left join clipper.route as route1
+on route1.particpant_id = trip1.operator_id
+and route1.route_id = trip1.route_id
+
+left join clipper.route as route2
+on route2.particpant_id = trip2.operator_id
+and route2.route_id = trip2.route_id
+
+where not exists (
+	  select generation_time_pst 
+	  from baypass.tagons as trip3
+	  where trip1.anonymized_card_serial_number = trip3.anonymized_card_serial_number
+	  and trip1.generation_time_pst < trip3.generation_time_pst   ---This part makes it so it only matches with the first trip that happened after the first tag-on
+	  and trip2.generation_time_pst > trip3.generation_time_pst 
+	  )
+;
+
+
+drop table if exists baypass.trip_level_data;
+
+
+select tf.*, 
+		tr.transfer_flag, 
+		tr.trip_1_operator as operator_transferred_from,
+		(case when (tr.transfer_flag is not null) and (operator_transferred_from != p.participant_name) then 1 else 0 end) as interop_transfer_flag,
+		(case when (tr.transfer_flag is not null) and (operator_transferred_from = p.participant_name) then 1 else 0 end) as intraop_transfer_flag,
+		(case when (tr.trip_1_operator = 'SF Muni') and (tr.trip_1_operator = tf.operator_name) then (tf.estimated_adult_fare - 2.50) else tf.estimated_adult_fare end) as estimated_adult_fare_with_transfers
+into baypass.trip_level_data 
+from baypass.trips_with_estimated_fare as tf
+left join baypass.transfers as tr on tf.ride_start_time_pst = tr.trip_2_tag_on_time and tf.anonymized_card_serial_number = tr.anonymized_card_serial_number
+left join clipper.participant as p on p.participant_id = tf.operator_id
+where tf.ride_start_time_pst >= '2022-08-01';
+
+
+drop table if exists baypass.tagons;
+
+
+drop table if exists baypass.tagoffs;
+
+
+drop table if exists baypass.complete_trips;
+
+
+drop table if exists baypass.tagoffs_only;
+
+
+drop table if exists baypass.tagons_only;
+
+
+drop table if exists baypass.trips;
+
+
+drop table if exists baypass.trips_with_estimated_fare;
+
+
+drop table if exists baypass.transfers;
+
+
+grant select on baypass.trip_level_data to eps_user, eps_admin, kanzai, tableau_baypass;
+
+
+Info: Found credentials at: C:\Users\kanzai\Box\dvutils-creds-kanzai.json
+drop table if exists baypass.card_level_data;
+
+
+select institution_name,
+anonymized_card_serial_number,
+count(*) as number_of_trips,
+sum(estimated_adult_fare) as estimated_adult_fare,
+sum(interop_transfer_flag) as interop_transfer_flag,
+sum(intraop_transfer_flag) as intraop_transfer_flag
+into baypass.card_level_data
+from baypass.trip_level_data
+group by anonymized_card_serial_number, institution_name;
+
+
+drop table if exists baypass.institution_level_data;
+
+
+select institution_name,
+DATE_TRUNC('day', ride_start_time_pst) as ride_start_date,
+operator_name,
+sum(estimated_adult_fare) as estimated_adult_fare,
+sum(estimated_adult_fare_with_transfers) as estimated_adult_fare_with_transfers
+into baypass.institution_level_data
+from baypass.trip_level_data
+group by institution_name,
+ride_start_date,
+operator_name
+;
+
+
+grant select on baypass.card_level_data to eps_user, eps_admin, kanzai, tableau_baypass;
+
+
+grant select on baypass.institution_level_data to eps_user, eps_admin, kanzai, tableau_baypass;
+
+
+C:\Users\KAnzai\Documents\GitHub\mtcpy\mtcpy\aws.py:426: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  df = pd.concat(dfs)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:448: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  self.contract_df = self.contract_info[self.contract_info.econtracts_contract_id != 0][self.contract_info.start_date < dt.date.today()]
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:159: RuntimeWarning: invalid value encountered in scalar divide
+  self.projected_breakeven_daily_price = (self.projected_value_used - self.value_used) / self.projected_pass_days
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:159: RuntimeWarning: invalid value encountered in scalar divide
+  self.projected_breakeven_daily_price = (self.projected_value_used - self.value_used) / self.projected_pass_days
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:159: RuntimeWarning: invalid value encountered in scalar divide
+  self.projected_breakeven_daily_price = (self.projected_value_used - self.value_used) / self.projected_pass_days
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:159: RuntimeWarning: invalid value encountered in scalar divide
+  self.projected_breakeven_daily_price = (self.projected_value_used - self.value_used) / self.projected_pass_days
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:159: RuntimeWarning: invalid value encountered in scalar divide
+  self.projected_breakeven_daily_price = (self.projected_value_used - self.value_used) / self.projected_pass_days
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:159: RuntimeWarning: invalid value encountered in scalar divide
+  self.projected_breakeven_daily_price = (self.projected_value_used - self.value_used) / self.projected_pass_days
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:159: RuntimeWarning: invalid value encountered in scalar divide
+  self.projected_breakeven_daily_price = (self.projected_value_used - self.value_used) / self.projected_pass_days
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:202: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:248: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+C:\Users\KAnzai\Documents\GitHub\baypass\src\update_baypass_contract_metrics.py:299: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+  date_list = pd.date_range(start = row.date, periods = row.validity_length)
+Info: Found credentials at: C:\Users\kanzai\Box\dvutils-creds-kanzai.json
+UNLOAD ('SELECT * FROM baypass.institution_level_data')
+    TO 's3://baypass/redshift_table_unloads/clipper_ods/baypass/institution_level_data/'
+    CREDENTIALS 'aws_access_key_id=XXX;aws_secret_access_key=XXX'
+    ALLOWOVERWRITE
+    CSV
+HEADER
+
+
+Info: Set AWS creds using 'default' creds.
+took 4.9305 minutes
+took 0.5947 seconds
+took 0.5767 seconds
+took 0.6376 seconds
+took 0.6196 seconds
+took 0.6099 seconds
+Info: Set AWS creds using 'default' creds.
+dataframe on S3 at baypass:contract_data.csv
+DROP TABLE IF EXISTS clipper_ods.baypass.contract_data
+
+
+CREATE TABLE "clipper_ods"."baypass"."contract_data" (    date DATETIME,    number_of_passes DECIMAL(6,0),    price DECIMAL(6,2),    participation_status DECIMAL(1,0),    number_of_active_days_in_year DECIMAL(3,0),    daily_price DECIMAL(5,2),    value DECIMAL(8,2),    value_used DECIMAL(10,2),    cumulative_value DECIMAL(10,2),    cumulative_value_used DECIMAL(12,2),    all_value_used DECIMAL(10,2),    cumulative_all_value_used DECIMAL(12,2),    non_contract_value_used DECIMAL(10,2),    surplus DECIMAL(10,2),    cumulative_surplus DECIMAL(12,2),    breakeven_monthly_price DECIMAL(12,2),    institution_name VARCHAR(255),    contract_name VARCHAR(255),    contract_status VARCHAR(255),    data_type VARCHAR(20),    use_fraction DECIMAL(10,4))
+
+
+COPY baypass.contract_data
+                FROM 's3://baypass/contract_data.csv'
+                CREDENTIALS 'aws_access_key_id=XXX;aws_secret_access_key=XXX'
+                EMPTYASNULL
+                FILLRECORD
+                TIMEFORMAT as auto
+                DATEFORMAT as auto
+                NULL AS nan
+                CSV
+                IGNOREHEADER 1;
+
+
+Grant select on baypass.contract_data to eps_user, eps_admin, tableau_baypass, kanzai
+
+
