@@ -191,11 +191,11 @@ FROM candidate_pairs
 WHERE rn_next = 1;
 
 
-drop table if exists baypass.clipper_trips;
+drop table if exists baypass.clipper_trips_2024_to_2026;
 
 
 -- Step 8: Enrich trips with metadata and transfer flags
-CREATE TABLE baypass.clipper_trips AS
+CREATE TABLE baypass.clipper_trips_2024_to_2026 AS
 
 WITH base AS (
   SELECT
@@ -328,6 +328,20 @@ LEFT JOIN baypass.transfer_discount_rules AS tdr
 ;
 
 
+drop table if exists baypass.clipper_trips;
+
+
+SELECT t.*
+INTO TABLE baypass.clipper_trips
+FROM (
+  SELECT * FROM baypass.clipper_trips_2019_to_2022
+  UNION
+  SELECT * FROM baypass.clipper_trips_2022_to_2024
+  UNION
+  SELECT * FROM baypass.clipper_trips_2024_to_2026
+) AS t;
+
+
 drop table if exists baypass.anonymized_fare_transaction_subset;
 
 
@@ -352,6 +366,38 @@ drop table if exists baypass.trips;
 drop table if exists baypass.transfers;
 
 
+drop table if exists baypass.clipper_trips_2024_to_2026;
+
+
 grant select on baypass.trip_level_data to eps_user, eps_admin, kanzai, tableau_baypass;
 
 
+Traceback (most recent call last):
+  File "C:\Users\KAnzai\AppData\Local\anaconda3\envs\mtcpy-env\Lib\site-packages\redshift_connector\core.py", line 1830, in execute
+    ps = cache["ps"][key]
+         ~~~~~~~~~~~^^^^^
+KeyError: ('grant select on baypass.trip_level_data to eps_user, eps_admin, kanzai, tableau_baypass;', ())
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KAnzai\Documents\GitHub\clipper\src\update_trip_level_data.py", line 25, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\KAnzai\Documents\GitHub\clipper\src\update_trip_level_data.py", line 22, in main
+    execute_redshift_cmds([grant_permissions_query ], dbname = 'clipper_ods')
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAnzai\Documents\GitHub\mtcpy\mtcpy\aws.py", line 563, in execute_redshift_cmds
+    cur.execute(cmd)
+    ~~~~~~~~~~~^^^^^
+  File "C:\Users\KAnzai\AppData\Local\anaconda3\envs\mtcpy-env\Lib\site-packages\redshift_connector\cursor.py", line 263, in execute
+    raise e
+  File "C:\Users\KAnzai\AppData\Local\anaconda3\envs\mtcpy-env\Lib\site-packages\redshift_connector\cursor.py", line 256, in execute
+    self._c.execute(self, operation, args)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KAnzai\AppData\Local\anaconda3\envs\mtcpy-env\Lib\site-packages\redshift_connector\core.py", line 1911, in execute
+    self.handle_messages(cursor)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\KAnzai\AppData\Local\anaconda3\envs\mtcpy-env\Lib\site-packages\redshift_connector\core.py", line 2203, in handle_messages
+    raise self.error
+redshift_connector.error.ProgrammingError: {'S': 'ERROR', 'C': '42P01', 'M': 'relation "baypass.trip_level_data" does not exist', 'F': '/opt/brazil-pkg-cache/packages/RedshiftPADB/RedshiftPADB-1.0.63480.0/AL2_aarch64/generic-flavor/src/src/pg/src/backend/catalog/namespace.c', 'L': '273', 'R': 'LocalRangeVarGetRelid'}

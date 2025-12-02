@@ -18,7 +18,7 @@ def main() -> None:
             drop_table_query = 'drop table if exists baypass.' + query_suffix + ';'
             execute_redshift_cmds([drop_table_query ], dbname = 'clipper_ods')
 
-    grant_permissions_query = 'grant select on baypass.trip_level_data to eps_user, eps_admin, kanzai, tableau_baypass;'
+    grant_permissions_query = 'grant select on baypass.clipper_trips to eps_user, eps_admin, kanzai, tableau_baypass;'
     execute_redshift_cmds([grant_permissions_query ], dbname = 'clipper_ods')
 
 if __name__ == "__main__":
