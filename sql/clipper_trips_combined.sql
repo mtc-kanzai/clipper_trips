@@ -3,6 +3,7 @@
 -- Step 1: Filter fare transactions from July 1, 2024 onward
 DROP TABLE IF EXISTS baypass.anonymized_fare_transaction_subset;
 
+-- Step 1: Filter fare transactions from January 2, 2024 onward
 CREATE TABLE baypass.anonymized_fare_transaction_subset
 DISTSTYLE KEY DISTKEY(anonymized_card_serial_number)
 SORTKEY(ride_start_time_pst)
@@ -37,17 +38,20 @@ WHERE aft.ride_start_time_pst >= TIMESTAMP '2024-01-02 00:00:00'
 
 -- Step 2: Separate tag-ons and tag-offs
 DROP TABLE IF EXISTS baypass.tagons;
+-- Step 2: Separate tag-ons and tag-offs
 SELECT * INTO TABLE baypass.tagons
 FROM baypass.anonymized_fare_transaction_subset
 WHERE fare_transaction_sub_type IN (1, 2, 4);
 
 DROP TABLE IF EXISTS baypass.tagoffs;
+-- Step 2: Separate tag-ons and tag-offs
 SELECT * INTO TABLE baypass.tagoffs
 FROM baypass.anonymized_fare_transaction_subset
 WHERE fare_transaction_sub_type IN (3, 5);
 
 -- Step 3: Identify complete trips by matching tag-ons and tag-offs
 DROP TABLE IF EXISTS baypass.complete_trips;
+-- Step 3: Identify complete trips by matching tag-ons and tag-offs
 SELECT f.*,
   CASE 
     WHEN f.fare_transaction_sub_type = 3 THEN n.purse_amount - f.purse_amount
@@ -60,6 +64,7 @@ JOIN baypass.tagons as n ON f.anonymized_card_serial_number = n.anonymized_card_
 
 -- Step 4: Identify tag-offs without matching tag-ons
 DROP TABLE IF EXISTS baypass.tagoffs_only;
+-- Step 4: Identify tag-offs without matching tag-ons
 SELECT f.*,
   CASE 
     WHEN f.fare_transaction_sub_type = 3 THEN -f.purse_amount
@@ -73,6 +78,7 @@ WHERE n.ride_start_time_pst IS NULL;
 
 -- Step 5: Identify tag-ons without matching tag-offs
 DROP TABLE IF EXISTS baypass.tagons_only;
+-- Step 5: Identify tag-ons without matching tag-offs
 SELECT n.*,
   n.purse_amount AS fare_charged
 INTO TABLE baypass.tagons_only
@@ -83,6 +89,7 @@ WHERE f.ride_start_time_pst IS NULL;
 
 -- Step 6: Combine all trips into a unified table
 DROP TABLE IF EXISTS baypass.trips;
+-- Step 6: Combine all trips into a unified table
 SELECT t.*,
   EXTRACT(YEAR FROM t.ride_start_time_pst) AS fare_year,
   CASE WHEN EXTRACT(MONTH FROM t.ride_start_time_pst) > 6 THEN 7 ELSE 1 END AS fare_month
@@ -98,6 +105,7 @@ FROM (
 -- Step 7: Identify transfers (second tag-on within 2 hours of the first)
 DROP TABLE IF EXISTS baypass.transfers;
 
+-- Step 7: Identify transfers (second tag-on within 2 hours of the first)
 CREATE TABLE baypass.transfers AS
 WITH trip1_enriched AS (
   SELECT
@@ -173,7 +181,8 @@ WHERE rn_next = 1;
 
 
 -- Step 8: Enrich trips with metadata and transfer flags
-DROP TABLE IF EXISTS baypass.clipper_trips;
+DROP TABLE IF EXISTS clipper_trips_test;
+-- Step 8: Enrich trips with metadata and transfer flags
 CREATE TABLE baypass.clipper_trips AS
 
 WITH base AS (
@@ -305,3 +314,6 @@ LEFT JOIN baypass.transfer_discount_rules AS tdr
   ON tdr.operator_transferred_from = b.operator_transferred_from
  AND tdr.operator_transferred_to   = b.operator_name
 ;
+
+
+GRANT SELECT ON baypass.trip_level_data TO tableau_baypass, eps_admin, eps_user;

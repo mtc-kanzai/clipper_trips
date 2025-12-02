@@ -1,7 +1,7 @@
 from mtcpy.aws import execute_redshift_cmds
 
 def main() -> None:
-    query_name_list = ['anonymized_fare_transaction_subset', 'tagons', 'tagoffs', 'complete_trips', 'tagoffs_only', 'tagons_only', 'trips', 'transfers', 'clipper_trips']
+    query_name_list = ['anonymized_fare_transaction_subset', 'tagons', 'tagoffs', 'complete_trips', 'tagoffs_only', 'tagons_only', 'trips', 'transfers', 'clipper_trips_2024_to_2026', 'clipper_trips']
 
     for query_suffix in query_name_list:
         drop_table_query = 'drop table if exists baypass.' + query_suffix + ';'
